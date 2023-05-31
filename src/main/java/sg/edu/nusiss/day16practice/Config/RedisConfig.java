@@ -17,10 +17,13 @@ public class RedisConfig {
 
     @Value("${spring.data.redis.host}")
     private String redisHost;
+
     @Value("${spring.data.redis.port}")
     private Optional<Integer> redisPort;
+
     @Value("${spring.data.redis.username}")
     private String redisUsername;
+
     @Value("${spring.data.redis.password}")
     private String redisPassword;
 
@@ -28,20 +31,19 @@ public class RedisConfig {
     @Scope("singleton")
     public RedisTemplate<String, Object> redisTemplate() {
         final RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
+
         config.setHostName(redisHost);
         config.setPort(redisPort.get());
-        if(!redisUsername.isEmpty() && !redisPassword.isEmpty()) {
+        if (!redisUsername.isEmpty() && !redisPassword.isEmpty()) {
             config.setUsername(redisUsername);
             config.setPassword(redisPassword);
         }
-
         config.setDatabase(0);
         final JedisClientConfiguration jedisClient = JedisClientConfiguration.builder().build();
 
         final JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient);
 
         jedisFac.afterPropertiesSet();
-
         RedisTemplate<String, Object> r = new RedisTemplate<String, Object>();
 
         r.setConnectionFactory(jedisFac);
@@ -49,6 +51,4 @@ public class RedisConfig {
         r.setValueSerializer(r.getKeySerializer());
         return r;
     }
-    
-
 }
