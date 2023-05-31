@@ -12,7 +12,7 @@ ARG REDISPORT
 ARG REDISUSER
 ARG REDISPASSWORD
 
-RUN mvn -f /home/app/pom.xml clean package
+RUN mvn clean package
 
 #
 # second stage
