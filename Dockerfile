@@ -12,7 +12,7 @@ ARG REDISPORT
 ARG REDISUSER
 ARG REDISPASSWORD
 
-RUN mvn clean package
+RUN mvn -f D:\Visa stuff\Java projects\day16practice\pom.xml clean package
 
 #
 # second stage
